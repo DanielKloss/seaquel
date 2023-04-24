@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("VITE_DATABASE_URL")
+}
+
+model scene {
+  id Int @id
+  name String
+  location String
+  context String
+  scene_roles scene_role[]
+}
+
+model role {
+  id Int @id
+  name String
+  scene_roles scene_role[]
+}
+
+model scene_role {
+  line String
+  scene_id Int
+  scene scene @relation(fields: [scene_id], references: [id])
+  role_id Int
+  role role @relation(fields: [role_id], references: [id])
+
+  @@id([scene_id, role_id])
+}
