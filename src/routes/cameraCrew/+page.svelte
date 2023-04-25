@@ -1,8 +1,21 @@
 <script lang="ts">
   let videoUpload: File;
 
-  function changed(){
-    console.log(videoUpload);
+  async function changed(){
+    let url = 'https://file.io/'
+    let data = {
+      "file": videoUpload,
+      "maxDownloads": 1,
+      "autoDelete": true
+    }
+    let response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+    }});
+    let res = response.json()
+    console.log(res)
   }
 </script>
 
