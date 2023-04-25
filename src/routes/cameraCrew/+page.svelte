@@ -5,7 +5,7 @@
     let url = 'https://file.io/'
     var data = new FormData()
     data.append('file', files[0])
-    let response = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + import.meta.env.VITE_FILEIO_API_KEY
@@ -17,9 +17,4 @@
 
 <label for="picture">Take a video:</label>
 
-<input type="file"
-       name="video"
-       accept="image"
-       capture="environment"
-       bind:files
-       on:change={() => changed()}/>
+<input type="file" name="video" accept="video/*" capture="environment" bind:files on:change={() => changed()}/>
