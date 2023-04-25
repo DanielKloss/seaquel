@@ -1,1 +1,1 @@
-<input type="file" accept="video/*" capture > 
+<input type="file" accept="video/*" capture="user" > 
