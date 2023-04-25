@@ -1,21 +1,17 @@
 <script lang="ts">
-  let videoUpload: File;
+  let files: FileList;
 
   async function changed(){
     let url = 'https://file.io/'
-    let data = {
-      "file": videoUpload,
-      "maxDownloads": 1,
-      "autoDelete": true
-    }
+    var data = new FormData()
+    data.append('file', files[0])
     let response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data),
       headers: {
-        'content-type': 'application/json'
-    }});
-    let res = response.json()
-    console.log(res)
+        'Authorization': 'Bearer ' + import.meta.env.VITE_FILEIO_API_KEY
+      },
+      body: data
+    });
   }
 </script>
 
@@ -23,7 +19,7 @@
 
 <input type="file"
        name="video"
-       accept="video/*"
+       accept="image"
        capture="environment"
-       bind:value={videoUpload}
+       bind:files
        on:change={() => changed()}/>
