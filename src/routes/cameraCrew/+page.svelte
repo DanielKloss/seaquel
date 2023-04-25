@@ -1,6 +1,16 @@
-<label for="picture">Take a picture of your face:</label>
+<script lang="ts">
+  let videoUpload: File;
+
+  function changed(){
+    console.log(videoUpload);
+  }
+</script>
+
+<label for="picture">Take a video:</label>
 
 <input type="file"
        name="video"
        accept="video/*"
-       capture="environment">
+       capture="environment"
+       bind:value={videoUpload}
+       on:change={() => changed()}/>
