@@ -6,7 +6,7 @@
 </script>
 
 <main class="page">
-  <div class="instructions">
+  <div>
     <h1 class="sceneTitle">{scene.name}</h1>
     <div class="infoContainer">
       <img class="smallIconImage" src="icons/map.png" alt="map icon" />
@@ -51,9 +51,6 @@
   .page {
     display: flex;
     flex-direction: column;
-  }
-  
-  .instructions {
     font-family: "Trebuchet MS";
   }
 
