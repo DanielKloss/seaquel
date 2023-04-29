@@ -17,4 +17,4 @@
 
 <label for="picture">Take a video:</label>
 
-<input type="file" name="video" accept="video" bind:files on:change={() => changed()}/>
+<input type="file" name="video" accept=".mp4, .mov" bind:files on:change={() => changed()}/>
