@@ -30,3 +30,9 @@ model scene_role {
 
   @@id([scene_id, role_id])
 }
+
+model studio_scene {
+  id Int @id
+  name String
+  scene_number Int
+}

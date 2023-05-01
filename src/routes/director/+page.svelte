@@ -1,8 +1,25 @@
 <script lang="ts">
-    export let data: PageData;
-    let currentScene = 0;
+  import { createClient } from '@supabase/supabase-js'
 
-    $: scene = data.scenes[currentScene];
+  export let data: PageData;
+
+  let currentScene = 0;
+
+  $: scene = data.scenes[currentScene];
+
+  const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
+
+  const channel = supabase
+    .channel('schema-db-changes')
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+      },
+      (payload) => console.log(payload)
+    )
+    .subscribe()
 </script>
 
 <main class="page">
