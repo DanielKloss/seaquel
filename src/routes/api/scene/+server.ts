@@ -6,7 +6,7 @@ export async function POST({ request }) {
 
     const prisma = new PrismaClient();
 
-    await prisma.studio_scene.update({
+    let response = await prisma.studio_scene.update({
       where: {
         id: requestData.studioId,
       },
@@ -17,5 +17,5 @@ export async function POST({ request }) {
       },
     });
 
-    return new Response();
+    return new Response(JSON.stringify(response));
 }

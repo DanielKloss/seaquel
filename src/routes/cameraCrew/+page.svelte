@@ -7,20 +7,22 @@
     let url = 'https://file.io/'
     var data = new FormData()
     data.append('file', fileToUpload)
-    await fetch(url, {
+    let fileupload = await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + import.meta.env.VITE_FILEIO_API_KEY
       },
       body: data
     });
-    await fetch('/api/scene', {
+    console.log(fileupload);
+    let supabaseupdate = await fetch('/api/scene', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify({studioId: 1})
     });
+    console.log(supabaseupdate);
   }
 </script>
 
