@@ -14,7 +14,7 @@
     .on(
       'postgres_changes',
       {
-        event: 'INSERT',
+        event: 'UPDATE',
         schema: 'public',
       },
       (payload) => console.log(payload)

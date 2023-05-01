@@ -14,6 +14,13 @@
       },
       body: data
     });
+    await fetch('/api/scene', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({studioId: 1})
+    });
   }
 </script>
 
