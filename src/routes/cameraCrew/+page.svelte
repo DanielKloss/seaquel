@@ -14,7 +14,6 @@
       },
       body: data
     });
-    console.log(fileupload);
     let supabaseupdate = await fetch('/api/scene', {
       method: 'POST',
       headers: {
@@ -22,7 +21,6 @@
       },
       body: JSON.stringify({studioId: 1})
     });
-    console.log(supabaseupdate);
   }
 </script>
 
