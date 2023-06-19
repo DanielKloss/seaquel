@@ -31,8 +31,9 @@ model scene_role {
   @@id([scene_id, role_id])
 }
 
-model studio_scene {
+model studio {
   id Int @id
   name String
   scene_number Int
+  points Int @default(0)
 }

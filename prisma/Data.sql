@@ -1,8 +1,38 @@
-INSERT INTO studio_scene ("id", "name", "scene_number") VALUES (1, "SHIT", 101);
-INSERT INTO studio_scene ("id", "name", "scene_number") VALUES (2, "FUCK", 201);
+INSERT INTO studio ("id", "name", "scene_number") VALUES (1, "SHIT", 101);
+INSERT INTO studio ("id", "name", "scene_number") VALUES (2, "FUCK", 201);
 
-INSERT INTO scene ("id", "name", "location", "context") VALUES (1, 'Sci Fi', 'Wing Sitting Room', 'Aliens have invaded. The invasion has been raging for years. Humanity are on the brink of defeat. Only decrypting the alien language will allow   humanity to make a plan to stop the invasion. Once you have cracked the code, record your actors reading the script below');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (101, 'Sci Fi', 'Wing Sitting Room', 'Aliens have invaded. The invasion has been raging for years. Humanity are on the brink of defeat. Only decrypting the alien language will allow humanity to make a plan to stop the invasion. Once you have cracked the code, record your actors reading the script below');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (102, 'Action', 'Trampoline', 'Now humanity have a plan they can execute it through over choreographed fight scenes and turning their backs on explosions. Do the best 3 trick routine you can on the trampoline. Incorporate at least one of the lines from the script into your routine');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (103, 'Musical', 'Grand Piano', 'This is a musical montage scene. Your actors do not need to play any roles. The world was saved! Celebrations ran long into the night and spilled out onto the street over the following weeks. Everyone was so happy they starting conversing and interacting purely through the medium of song. But what songs where the biggest hits?');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (104, 'Romance', 'Wing Kitchen', 'This is the Romance Scene. Your actors will need to play the roles of romantic lovers and read the script below. If music be the food of love… With peace restored after the alien invasion it wasnt long before...');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (105, 'Comedy', 'Find the Other Team', 'This is the comedy scene. Your actors must make members of the other team laugh. The peace and romance led to decades of prosperity for humanity. Laughter returned.');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (106, 'Noir', 'Study', 'It was his last day on the job... he should have been going home early for a quiet cup of tea. But if what hed just uncovered was true the aliens had already infiltrated every government in the world. The cup of tea would have to wait.');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (107, 'Adventure', 'Kitchen', 'This is the adventure/ fantasy scene. One of your actors needs to play the role of brave adventurer. They need to drink all these shots while saying at least one of the lines from the script. In a desperate attempt to save humanity from the aliens one brave adventurer enters an ancient burial ground, looking for the legendary magic drink that is said to give the consumer superpowers.');
+
+INSERT INTO scene ("id", "name", "location", "context") VALUES (201, 'Sci Fi', 'Wing Sitting Room', 'Aliens have invaded. The invasion has been raging for years. Humanity are on the brink of defeat. Only decrypting the alien language will allow humanity to make a plan to stop the invasion. Once you have cracked the code, record your actors reading the script below');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (202, 'Action', 'Trampoline', 'Now humanity have a plan they can execute it through over choreographed fight scenes and turning their backs on explosions. Do the best 3 trick routine you can on the trampoline. Incorporate at least one of the lines from the script into your routine');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (203, 'Musical', 'Grand Piano', 'This is a musical montage scene. Your actors do not need to play any roles. The world was saved! Celebrations ran long into the night and spilled out onto the street over the following weeks. Everyone was so happy they starting conversing and interacting purely through the medium of song. But what songs where the biggest hits?');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (204, 'Romance', 'Wing Kitchen', 'This is the Romance Scene. Your actors will need to play the roles of romantic lovers and read the script below. If music be the food of love… With peace restored after the alien invasion it wasnt long before...');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (205, 'Noir', 'Study', 'It was his last day on the job... he should have been going home early for a quiet cup of tea. But if what hed just uncovered was true the aliens had already infiltrated every government in the world. The cup of tea would have to wait.');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (206, 'Horror', 'Find the Other Team', 'This is the horror scene. Scare the other team. News of the impending alien invasion spread fast. People were looking over their shoulders while walking down the street.');
+INSERT INTO scene ("id", "name", "location", "context") VALUES (207, 'Adventure', 'Kitchen', 'This is the adventure/ fantasy scene. One of your actors needs to play the role of brave adventurer. They need to drink all these shots while saying at least one of the lines from the script. In a desperate attempt to save humanity from the aliens one brave adventurer enters an ancient burial ground, looking for the legendary magic drink that is said to give the consumer superpowers.');
+
 INSERT INTO role ("id", "name") VALUES (1, 'Scientist');
 INSERT INTO role ("id", "name") VALUES (2, 'Alpha Man');
-INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (1, 1, 'Ive got it! The message reads [INSERT MESSAGE HERE]');
-INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (1, 2, 'Finally, the poindexters have got it. Give me that message, Ive got a world to save...');
+INSERT INTO role ("id", "name") VALUES (3, 'First-day-on-the-job Cop');
+INSERT INTO role ("id", "name") VALUES (4, 'One-day-from-retirement Cop');
+INSERT INTO role ("id", "name") VALUES (5, 'Brave Adventurer');
+
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (101, 1, 'Ive got it! The message reads [INSERT MESSAGE HERE]');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (101, 2, 'Finally, the poindexters have got it. Give me that message, Ive got a world to save...');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (102, 2, 'Looks like youre the ones who got abducted this time! / I guess you didnt come in peace! / Sorry, but it looks like your invasion just got cancelled!');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (106, 3, '');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (106, 4, '');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (107, 5, 'This is what separates the heroes from the sidekicks / Im not saying this is a good idea, but its definitely an idea / Im about to do something stupid, but its gonna look awesome / Ive never done this before, but thats never stopped me');
+
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (201, 1, 'Ive got it! The message reads [INSERT MESSAGE HERE]');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (201, 2, 'Finally, the poindexters have got it. Give me that message, Ive got a world to save...');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (202, 2, 'Looks like youre the ones who got abducted this time! / I guess you didnt come in peace! / Sorry, but it looks like your invasion just got cancelled!');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (205, 3, '');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (205, 4, '');
+INSERT INTO scene_role ("scene_id", "role_id", "line") VALUES (207, 5, 'This is what separates the heroes from the sidekicks / Im not saying this is a good idea, but its definitely an idea / Im about to do something stupid, but its gonna look awesome / Ive never done this before, but thats never stopped me');

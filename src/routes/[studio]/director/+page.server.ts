@@ -1,7 +1,7 @@
-import PrismaClient from "../../prisma";
+import PrismaClient from "../../../prisma";
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load() {
+export async function load({ params }) {
     const prisma = new PrismaClient();
 
     let scenes = await prisma.scene.findMany({
@@ -23,7 +23,17 @@ export async function load() {
         }
     });
 
+    let studio = await prisma.studio.findUnique({
+      select: {
+        name: true,
+        scene_number: true,
+      },
+      where: {
+        id: parseInt(params.studio)
+      },
+    });
+
     await prisma.$disconnect();
 
-    return { scenes };
+    return { scenes, studio };
 }
