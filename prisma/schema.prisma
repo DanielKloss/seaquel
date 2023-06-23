@@ -13,7 +13,8 @@ model scene {
   location String
   context String
   scene_roles scene_role[]
-  studio studio?
+  studio_id Int @default(1)
+  studio studio @relation(fields: [studio_id], references: [id])
 }
 
 model role {
@@ -35,7 +36,6 @@ model scene_role {
 model studio {
   id Int @id
   name String
-  scene_id Int @unique
-  scene scene @relation(fields: [scene_id], references: [id])
+  scenes scene[]
   points Int @default(0)
 }
