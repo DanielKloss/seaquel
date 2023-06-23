@@ -38,4 +38,5 @@ model studio {
   name String
   scenes scene[]
   points Int @default(0)
+  current_scene_id Int @default(1)
 }
