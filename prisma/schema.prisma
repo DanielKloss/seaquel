@@ -28,7 +28,7 @@ model scene_role {
   role_id Int
   role role @relation(fields: [role_id], references: [id])
 
-  @@id([scene_id, role_id])
+  @@id([scene_id, role_id, line])
 }
 
 model studio {
