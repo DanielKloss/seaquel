@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 export async function POST({ request }) {
   let requestData = await request.json();
   let newScene;
+  let finished = false;
   const prisma = new PrismaClient();
   
   let studio = await prisma.studio.findUnique({
@@ -21,14 +22,21 @@ export async function POST({ request }) {
     newScene = 0;
   }
 
+  if (studio.start_scene == newScene) {
+    finished = true;
+  }
+
   let response = await prisma.studio.update({
     where: {
       id: parseInt(requestData.studioId),
     },
     data: {
       current_scene: newScene
+      finished: finished
     }
   });
+
+  await prisma.$disconnect();
 
   return new Response(JSON.stringify(response));
 }

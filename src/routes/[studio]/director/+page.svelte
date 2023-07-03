@@ -5,6 +5,7 @@
 
   $: scene = data.scenes[data.studio.current_scene];
   $: roles = [...new Set(scene.scene_roles.map(sr => sr.role.name))];
+  $: finished = data.studio.finished;
 
   const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
@@ -16,46 +17,56 @@
         event: 'UPDATE',
         schema: 'public',
       },
-      (payload) => (scene = data.scenes[payload.new.current_scene])
+      (payload) => {
+        if (payload.new.current_scene == data.studio.start_scene){
+          finished = true;
+        } else {
+          scene = data.scenes[payload.new.current_scene];
+        }
+      }
     )
     .subscribe()
 </script>
 
 <main class="page">
-  <div>
-    <h1 class="sceneTitle">{scene.name}</h1>
-    <div class="infoContainer">
-      <img class="smallIconImage" src="../icons/map.png" alt="map icon" />
-      <p class="sceneInfo">{scene.location}</p>
+  {#if finished}
+    <p>YOU ARE FINSIHED</p>
+  {:else}
+    <div>
+      <h1 class="sceneTitle">{scene.name}</h1>
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/map.png" alt="map icon" />
+        <p class="sceneInfo">{scene.location}</p>
+      </div>
+      {#if scene.scene_roles.length > 0}
+        <div class="infoContainer">
+          <img class="smallIconImage" src="../icons/theater.png" alt="theater icon" />
+          <ul>
+            {#each roles as role}
+              <li class="sceneInfo">{role}</li>
+            {/each}
+          </ul>
+        </div>
+      {/if}
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/megaphone.png" alt="context icon" />
+        <p class="sceneInfo">{scene.context}</p>
+      </div>
     </div>
     {#if scene.scene_roles.length > 0}
-      <div class="infoContainer">
-        <img class="smallIconImage" src="../icons/theater.png" alt="theater icon" />
-        <ul>
-          {#each roles as role}
-            <li class="sceneInfo">{role}</li>
-          {/each}
-        </ul>
+      <div class="scriptContainer">
+        <h2 class="scriptHeader">SCRIPT</h2>
+        {#each scene.scene_roles as role}
+          <div class="lineContainer">
+            <div class="left">
+              <h3 class="scriptRole">{role.role.name}</h3>
+              <p class="scriptLine">{role.line}</p>
+            </div>
+            <img class="iconImage" src="../icons/{role.role.name}.png" alt={role.role.name} />
+          </div>
+        {/each}
       </div>
     {/if}
-    <div class="infoContainer">
-      <img class="smallIconImage" src="../icons/megaphone.png" alt="context icon" />
-      <p class="sceneInfo">{scene.context}</p>
-    </div>
-  </div>
-  {#if scene.scene_roles.length > 0}
-    <div class="scriptContainer">
-      <h2 class="scriptHeader">SCRIPT</h2>
-      {#each scene.scene_roles as role}
-        <div class="lineContainer">
-          <div class="left">
-            <h3 class="scriptRole">{role.role.name}</h3>
-            <p class="scriptLine">{role.line}</p>
-          </div>
-          <img class="iconImage" src="../icons/{role.role.name}.png" alt={role.role.name} />
-        </div>
-      {/each}
-    </div>
   {/if}
 </main>
 

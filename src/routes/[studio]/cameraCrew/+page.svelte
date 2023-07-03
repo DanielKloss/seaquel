@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  export let data: PageData;
+ 
+  let studio = data.studio;
 
-  let studio = $page.params.studio;
+  $: finished = studio.finished;
 
   let files: FileList;
 
@@ -23,32 +25,36 @@
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({studioId: studio})
+      body: JSON.stringify({studioId: studio.id})
     });
   }
 </script>
 
 <main class="page">
-  <h1 class="instructionsTitle">Camera Crew Instructions</h1>
-  <div class="instructions">
-    <p class="instruction">1. When your team is ready to film a task press the button below. This will take you to your phone camera.</p>
-    <p class="instruction">2. Choose between the front and rear facing camera.</p>
-    <p class="instruction">3. Press your record button to record your actors.</p>
-    <p class="instruction">4. Once you've finished you will get a choice to accept the take or retry.</p>
-    <p class="instruction">5a. If you accept the take, the video will be uploaded for fan approval.</p>
-    <p class="instruction">5b. If you retry you will be returned to your camera to try again until you are happy.</p>
-    <div class="importantNote">
-      <img class="iconImage" src="../icons/warning.png" alt="warning" />
-      <p>Once you accept a take you cannot go back. You must move onto the next task.</p>
+  {#if finished}
+    <p>YOU ARE FINISHED</p>
+  {:else}
+    <h1 class="instructionsTitle">Camera Crew Instructions</h1>
+    <div class="instructions">
+      <p class="instruction">1. When your team is ready to film a task press the button below. This will take you to your phone camera.</p>
+      <p class="instruction">2. Choose between the front and rear facing camera.</p>
+      <p class="instruction">3. Press your record button to record your actors.</p>
+      <p class="instruction">4. Once you've finished you will get a choice to accept the take or retry.</p>
+      <p class="instruction">5a. If you accept the take, the video will be uploaded for fan approval.</p>
+      <p class="instruction">5b. If you retry you will be returned to your camera to try again until you are happy.</p>
+      <div class="importantNote">
+        <img class="iconImage" src="../icons/warning.png" alt="warning" />
+        <p>Once you accept a take you cannot go back. You must move onto the next task.</p>
+      </div>
     </div>
-  </div>
-  <label class="file">
-    <input type="file" name="video" accept="video/*" bind:files on:change={() => changed()}/>
-    <div class="button">
-      <img class="iconImage" src="../icons/camera.png" alt="action" />
-      <p>ACTION</p>
-    </div>
-  </label>
+    <label class="file">
+      <input type="file" name="video" accept="video/*" bind:files on:change={() => changed()}/>
+      <div class="button">
+        <img class="iconImage" src="../icons/camera.png" alt="action" />
+        <p>ACTION</p>
+      </div>
+    </label>
+  {/if}
 </main>
 
 <style>

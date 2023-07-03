@@ -36,6 +36,8 @@ model studio {
   id Int @id
   name String
   points Int @default(0)
+  finsihed Boolean @default(false)
+  start_scene Int @default(0)
   current_scene Int @default(0)
   studio_scenes studio_scene[]
 }
