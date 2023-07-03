@@ -4,6 +4,7 @@
   export let data: PageData;
 
   $: scene = data.scenes[data.studio.current_scene];
+  $: roles = [...new Set(scene.scene_roles.map(sr => sr.role.name))];
 
   const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
@@ -31,8 +32,8 @@
       <div class="infoContainer">
         <img class="smallIconImage" src="../icons/theater.png" alt="theater icon" />
         <ul>
-          {#each scene.scene_roles as role}
-            <li class="sceneInfo">{role.role.name}</li>
+          {#each roles as role}
+            <li class="sceneInfo">{role}</li>
           {/each}
         </ul>
       </div>
