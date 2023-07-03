@@ -19,6 +19,11 @@ export async function load({ params }) {
                         }
                     }
                 }
+            },
+            studio_scenes: {
+                where: {
+                    studio_id: parseInt(params.studio)
+                }
             }
         }
     });
@@ -26,7 +31,7 @@ export async function load({ params }) {
     let studio = await prisma.studio.findUnique({
       select: {
         name: true,
-        scene_number: true,
+        current_scene: true
       },
       where: {
         id: parseInt(params.studio)

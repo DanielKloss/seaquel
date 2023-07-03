@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { page } from "$app/stores";
+
+  let studio = $page.params.studio;
+
   let files: FileList;
 
   async function changed(){
@@ -19,11 +23,10 @@
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({studioId: 1})
+      body: JSON.stringify({studioId: studio})
     });
   }
 </script>
-
 
 <main class="page">
   <h1 class="instructionsTitle">Camera Crew Instructions</h1>
@@ -35,14 +38,14 @@
     <p class="instruction">5a. If you accept the take, the video will be uploaded for fan approval.</p>
     <p class="instruction">5b. If you retry you will be returned to your camera to try again until you are happy.</p>
     <div class="importantNote">
-      <img class="iconImage" src="icons/warning.png" alt="warning" />
+      <img class="iconImage" src="../icons/warning.png" alt="warning" />
       <p>Once you accept a take you cannot go back. You must move onto the next task.</p>
     </div>
   </div>
   <label class="file">
     <input type="file" name="video" accept="video/*" bind:files on:change={() => changed()}/>
     <div class="button">
-      <img class="iconImage" src="icons/camera.png" alt="action" />
+      <img class="iconImage" src="../icons/camera.png" alt="action" />
       <p>ACTION</p>
     </div>
   </label>
@@ -111,7 +114,5 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-
-  
+  } 
 </style>

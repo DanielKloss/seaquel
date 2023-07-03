@@ -3,9 +3,7 @@
 
   export let data: PageData;
 
-  let currentScene = data.studio.scene_number;
-
-  $: scene = data.scenes.find(s => s.id == currentScene);
+  $: scene = data.scenes[data.studio.current_scene];
 
   const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
@@ -17,7 +15,7 @@
         event: 'UPDATE',
         schema: 'public',
       },
-      (payload) => scene = data.scenes.find(s => s.id == payload.new.scene_number)
+      (payload) => scene = data.scenes[payload.new.scene_number]
     )
     .subscribe()
 </script>
@@ -137,18 +135,5 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-
-  .submitButton {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
-    text-transform: uppercase;
-    letter-spacing: 0.35rem;
-    font-weight: bolder;
-    padding: 1rem;
-    background-color: #fde047;
-    border: none;
   }
 </style>
