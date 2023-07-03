@@ -15,7 +15,7 @@
         event: 'UPDATE',
         schema: 'public',
       },
-      (payload) => scene = data.scenes[payload.new.current_scene]
+      (payload) => { scene = data.scenes[payload.new.current_scene]; console.log("UPDATED ", scene)}
     )
     .subscribe()
 </script>
