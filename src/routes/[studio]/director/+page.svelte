@@ -15,7 +15,7 @@
         event: 'UPDATE',
         schema: 'public',
       },
-      (payload) => scene = data.scenes[payload.new.scene_number]
+      (payload) => scene = data.scenes[payload.new.current_scene]
     )
     .subscribe()
 </script>
