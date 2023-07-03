@@ -3,8 +3,7 @@ import { PrismaClient } from '@prisma/client';
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
   let requestData = await request.json();
-  let newScene = 0;
-
+  let newScene;
   const prisma = new PrismaClient();
   
   let studio = await prisma.studio.findUnique({
@@ -17,8 +16,10 @@ export async function POST({ request }) {
   });
 
   if (studio && studio.current_scene < 7) {
-    newScene++
-  };
+    newScene = studio.current_scene++;
+  } else {
+    newScene = 0;
+  }
 
   let response = await prisma.studio.update({
     where: {
