@@ -12,28 +12,22 @@ export async function POST({ request }) {
       current_scene: true
     },
     where: {
-      id: requestData.studioId,
+      id: parseInt(requestData.studioId),
     }
   });
-
-  console.log(studio)
 
   if (studio && studio.current_scene < 7) {
     newScene++
   };
 
-  console.log(newScene)
-
   let response = await prisma.studio.update({
     where: {
-      id: requestData.studioId,
+      id: parseInt(requestData.studioId),
     },
     data: {
       current_scene: newScene
     }
   });
-
-  console.log(response)
 
   return new Response(JSON.stringify(response));
 }
