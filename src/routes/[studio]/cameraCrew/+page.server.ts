@@ -6,15 +6,15 @@ export async function load({ params }) {
 
   let studio = await prisma.studio.findUnique({
       select: {
-        id:true,
+        id: true,
         name: true,
         current_scene: true,
         start_scene: true,
         finished: true
-    },
-    where: {
-      id: parseInt(params.studio),
-    },
+      },
+      where: {
+        id: parseInt(params.studio)
+      },
   });
 
   await prisma.$disconnect();
