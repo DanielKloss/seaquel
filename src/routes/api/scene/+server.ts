@@ -9,7 +9,8 @@ export async function POST({ request }) {
   
   let studio = await prisma.studio.findUnique({
     select: {
-      current_scene: true
+      current_scene: true,
+      start_scene: true
     },
     where: {
       id: parseInt(requestData.studioId),
