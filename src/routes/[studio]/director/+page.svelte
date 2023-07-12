@@ -50,14 +50,14 @@
       </div>
     </div>
     <div class="scriptContainer">
-        <h2 class="scriptHeader">SCRIPT</h2>
-        <div class="lineContainer">
-          <div class="left">
-            <p class="scriptLine">We'd like to appeal our points total for the [INSERT SCENE HERE] scene</p>
-          </div>
-          <img class="iconImage" src="../icons/caution.png" alt="appeal" />
+      <h2 class="scriptHeader">SCRIPT</h2>
+      <div class="lineContainer">
+        <div class="left">
+          <p class="scriptLine">We'd like to appeal our points total for the [INSERT SCENE HERE] scene</p>
         </div>
+        <img class="iconImage" src="../icons/caution.png" alt="appeal" />
       </div>
+    </div>
   {:else}
     <div>
       <h1 class="sceneTitle">{scene.name}</h1>
