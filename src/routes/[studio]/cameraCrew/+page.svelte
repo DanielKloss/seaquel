@@ -5,6 +5,9 @@
 
   $: finished = studio.finished;
 
+  let uploaded = false;
+  let error = false;
+
   let files: FileList;
 
   async function changed(){
@@ -14,38 +17,89 @@
     let url = 'https://file.io/'
     var data = new FormData()
     data.append('file', fileToUpload)
-    await fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + import.meta.env.VITE_FILEIO_API_KEY
       },
       body: data
     });
-    await fetch('/api/scene', {
+
+    if(response.status != 200){
+      uploaded = false;
+      error = true;
+      return;
+    }
+
+    response = await fetch('/api/scene', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify({studioId: studio.id})
     });
+
+    if(response.status != 200){
+      uploaded = false;
+      error = true;
+      return;
+    }
+
+    let newData = await response.json()
+    
+    studio.current_scene = newData.studio.current_scene;
+
+    uploaded = true;
+    error = false;
   }
 </script>
 
 <main class="page">
   {#if finished}
-    <p>YOU ARE FINISHED</p>
+    <h1 class="sceneTitle">FINISHED</h1>
+    <div>
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/map.png" alt="map icon" />
+        <p class="sceneInfo">Outside / Dining Room</p>
+      </div>
+      <div class="infoContainer">
+          <img class="smallIconImage" src="../icons/theater.png" alt="theatre icon" />
+          <ul>
+            <li class="sceneInfo">Director</li>
+            <li class="sceneInfo">Producer</li>
+          </ul>
+        </div>
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/megaphone.png" alt="context icon" />
+        <p class="sceneInfo">Well done! The Salcombe IP Reps will now add up your score. This is also your opportunity to appeal if you wish. Then you can get yourselves a well earned drink while you wait for the final results.</p>
+      </div>
+    </div>
+    <div class="scriptContainer">
+      <h2 class="scriptHeader">SCRIPT</h2>
+      <div class="lineContainer">
+        <div class="left">
+          <p class="scriptLine">We'd like to appeal our points total for the [INSERT SCENE HERE] scene</p>
+        </div>
+        <img class="iconImage" src="../icons/caution.png" alt="appeal" />
+      </div>
+    </div>
   {:else}
-    <h1 class="instructionsTitle">Camera Crew Instructions</h1>
+    <h1 class="instructionsTitle">{studio.studio_scenes[studio.current_scene].scene.name}</h1>
     <div class="instructions">
-      <p class="instruction">1. When your team is ready to film a task press the button below. This will take you to your phone camera.</p>
-      <p class="instruction">2. Choose between the front and rear facing camera.</p>
-      <p class="instruction">3. Press your record button to record your actors.</p>
-      <p class="instruction">4. Once you've finished you will get a choice to accept the take or retry.</p>
-      <p class="instruction">5a. If you accept the take, the video will be uploaded for fan approval.</p>
-      <p class="instruction">5b. If you retry you will be returned to your camera to try again until you are happy.</p>
+      {#if uploaded}
+        <div class="importantNote">
+          <img class="iconImage" src="../icons/check.png" alt="uploaded" />
+          <p>Video successfully uploaded. Your director should now have the next task on their phone.</p>
+        </div>
+      {:else if error}
+        <div class="importantNote">
+          <img class="iconImage" src="../icons/cancel.png" alt="error" />
+          <p>Something went wrong. The video was not uploaded. Sorry! Check your wifi connection and try again.</p>
+        </div>
+      {/if}
       <div class="importantNote">
         <img class="iconImage" src="../icons/warning.png" alt="warning" />
-        <p>Once you accept a take you cannot go back. You must move onto the next task.</p>
+        <p>Once you ACCEPT your video you cannot go back. Your team must move onto the next task.</p>
       </div>
     </div>
     <label class="file">
@@ -79,11 +133,6 @@
     text-align: center;
     padding: 1rem;
     font-weight: bold;
-  }
-
-  .instruction {
-    line-height: 1.25rem;
-    letter-spacing: 0.025rem;
   }
 
   .importantNote {

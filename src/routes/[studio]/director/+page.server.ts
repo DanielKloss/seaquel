@@ -27,8 +27,8 @@ export async function load({ params }) {
           where: {
             studio_id: parseInt(params.studio),
           },
-        },
-      },
+        }
+      }
     });
 
     let studio = await prisma.studio.findUnique({
