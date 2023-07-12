@@ -6,6 +6,7 @@
   $: scene = data.scenes[data.studio.current_scene];
   $: roles = [...new Set(scene.scene_roles.map(sr => sr.role.name))];
   $: finished = data.studio.finished;
+  //let finished = true;
 
   const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
@@ -30,7 +31,33 @@
 
 <main class="page">
   {#if finished}
-    <p>YOU ARE FINSIHED</p>
+    <h1 class="sceneTitle">FINISHED</h1>
+    <div>
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/map.png" alt="map icon" />
+        <p class="sceneInfo">Outside / Dining Room</p>
+      </div>
+      <div class="infoContainer">
+          <img class="smallIconImage" src="../icons/theater.png" alt="theatre icon" />
+          <ul>
+            <li class="sceneInfo">Director</li>
+            <li class="sceneInfo">Producer</li>
+          </ul>
+        </div>
+      <div class="infoContainer">
+        <img class="smallIconImage" src="../icons/megaphone.png" alt="context icon" />
+        <p class="sceneInfo">Well done! The Salcombe IP Reps will now add up your score. This is also your opportunity to appeal if you wish. Then you can get yourselves a well earned drink while you wait for the final results.</p>
+      </div>
+    </div>
+    <div class="scriptContainer">
+        <h2 class="scriptHeader">SCRIPT</h2>
+        <div class="lineContainer">
+          <div class="left">
+            <p class="scriptLine">We'd like to appeal our points total for the [INSERT SCENE HERE] scene</p>
+          </div>
+          <img class="iconImage" src="../icons/caution.png" alt="appeal" />
+        </div>
+      </div>
   {:else}
     <div>
       <h1 class="sceneTitle">{scene.name}</h1>
