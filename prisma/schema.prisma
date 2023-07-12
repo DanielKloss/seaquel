@@ -46,7 +46,6 @@ model studio_scene {
   studio studio @relation(fields: [studio_id], references: [id])
   scene_id Int
   scene scene @relation(fields: [scene_id], references: [id])
-  order_id Int @default(0)
 
   @@id([studio_id, scene_id])
 }
