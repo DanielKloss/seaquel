@@ -17,7 +17,7 @@ export async function POST({ request }) {
     }
   });
 
-  if (studio && studio.current_scene < 7) {
+  if (studio && studio.current_scene < 6) {
     newScene = studio.current_scene + 1;
   } else {
     newScene = 0;
