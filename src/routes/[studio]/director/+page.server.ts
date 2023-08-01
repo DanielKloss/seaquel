@@ -5,6 +5,13 @@ export async function load({ params }) {
     const prisma = new PrismaClient();
 
   let scenes = await prisma.scene.findMany({
+    where: {
+      studio_scenes: {
+        some: {
+          studio_id: parseInt(params.studio),
+        }
+      }
+    },
     orderBy: {
       id: "asc",
     },
@@ -23,27 +30,24 @@ export async function load({ params }) {
           },
         },
       },
-      studio_scenes: {
-        where: {
-          studio_id: parseInt(params.studio),
-        },
-      },
     },
   });
 
-    let studio = await prisma.studio.findUnique({
-      select: {
-        name: true,
-        current_scene: true,
-        start_scene: true,
-        finished: true
-      },
-      where: {
-        id: parseInt(params.studio)
-      },
-    });
+  console.log(scenes)
 
-    await prisma.$disconnect();
+  let studio = await prisma.studio.findUnique({
+    select: {
+      name: true,
+      current_scene: true,
+      start_scene: true,
+      finished: true
+    },
+    where: {
+      id: parseInt(params.studio)
+    },
+  });
 
-    return { scenes, studio };
+  await prisma.$disconnect();
+
+  return { scenes, studio };
 }
