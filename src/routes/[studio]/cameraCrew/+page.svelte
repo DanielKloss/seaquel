@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Shadow } from 'svelte-loading-spinners';
   import Finished from "../../../lib/finished.svelte";
 
   export let data: PageData;
@@ -7,12 +8,14 @@
 
   $: finished = studio.finished;
 
+  let loading = false;
   let uploaded = false;
   let error = false;
 
   let files: FileList;
 
   async function changed(){
+    loading = true
     let name = String(studio.id) + " - " + String(studio.current_scene) + ".mp4";
     let blob = files[0].slice(0, files[0].size); 
     let fileToUpload = new File([blob], name);
@@ -51,9 +54,10 @@
     
     studio.current_scene = newData.current_scene;
 
-    finished = newData.IsFinished;
+    finished = newData.finished;
     uploaded = true;
     error = false;
+    loading = false;
   }
 </script>
 
@@ -62,6 +66,12 @@
     <Finished/>
   {:else}
     <h1 class="instructionsTitle">{studio.studio_scenes[studio.current_scene].scene.name}</h1>
+    {#if loading}
+    <div class="loading">
+      <Shadow size="60" color="#000000" unit="px" duration="1.75s"/>
+      <p>Uploading Scene</p>
+    </div>
+    {:else}
     <div class="instructions">
       {#if uploaded}
         <div class="importantNote">
@@ -79,13 +89,15 @@
         <p>Once you ACCEPT your video you cannot go back. Your team must move onto the next task.</p>
       </div>
     </div>
+    
     <label class="file">
       <input type="file" name="video" accept="video/*" bind:files on:change={() => changed()}/>
       <div class="button">
         <img class="iconImage" src="../icons/camera.png" alt="action" />
-        <p>ACTION</p>
+        <p>RECORD A TASK</p>
       </div>
     </label>
+    {/if}
   {/if}
 </main>
 
@@ -94,6 +106,14 @@
     display: flex;
     flex-direction: column;
     font-family: "Trebuchet MS";
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 4rem;
   }
 
   .instructions {
