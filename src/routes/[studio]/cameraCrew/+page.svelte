@@ -11,7 +11,7 @@
   let files: FileList;
 
   async function changed(){
-    let name = String(studio.id) + " - " + String(studio.current_scene);
+    let name = String(studio.id) + " - " + String(studio.current_scene) + ".mp4";
     let blob = files[0].slice(0, files[0].size); 
     let fileToUpload = new File([blob], name);
     let url = 'https://file.io/'
@@ -46,8 +46,9 @@
     }
 
     let newData = await response.json()
+    console.log(newData.current_scene)
     
-    studio.current_scene = newData.studio.current_scene;
+    studio.current_scene = newData.current_scene;
 
     uploaded = true;
     error = false;
