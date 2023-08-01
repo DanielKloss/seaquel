@@ -4,32 +4,32 @@ import PrismaClient from "../../../prisma";
 export async function load({ params }) {
     const prisma = new PrismaClient();
 
-    let scenes = await prisma.scene.findMany({
-      select: {
-        id: true,
-        name: true,
-        location: true,
-        context: true,
-        scene_roles: {
-          select: {
-            line: true,
-            role: {
-              select: {
-                name: true,
-              },
+  let scenes = await prisma.scene.findMany({
+    orderBy: {
+      id: "asc",
+    },
+    select: {
+      id: true,
+      name: true,
+      location: true,
+      context: true,
+      scene_roles: {
+        select: {
+          line: true,
+          role: {
+            select: {
+              name: true,
             },
           },
         },
-        studio_scenes: {
-          orderBy: {
-              scene_id: "asc",
-          },
-          where: {
-            studio_id: parseInt(params.studio),
-          },
-        }
-      }
-    });
+      },
+      studio_scenes: {
+        where: {
+          studio_id: parseInt(params.studio),
+        },
+      },
+    },
+  });
 
     let studio = await prisma.studio.findUnique({
       select: {
